@@ -1,0 +1,10 @@
+
+services:
+  - type: web
+    name: webhook-viewer
+    env: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm run start
+    branch: main
+    autoDeploy: true
