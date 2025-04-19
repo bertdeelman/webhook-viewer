@@ -15,7 +15,9 @@ async function fetchData() {
     item.textContent = `${req.timestamp}`;
     item.onclick = () => {
       selected = req;
-      detail.innerHTML = `
+
+      // Maak de detail-view
+      const toggleHtml = `
         <div class="flex items-center gap-2 mb-2">
           <input type="checkbox" id="toggleHeaders" class="accent-ral3031" />
           <label for="toggleHeaders">Toon headers</label>
@@ -29,11 +31,13 @@ async function fetchData() {
         <button onclick="copyDetail()" class="mt-4 bg-ral3031 text-white px-4 py-2 rounded hover:bg-white hover:text-black transition">Kopieer alles</button>
       `;
 
-      // Voeg eventlistener toe zodra de checkbox bestaat
-      const checkbox = document.getElementById('toggleHeaders');
-      const section = document.getElementById('headersSection');
-      checkbox.addEventListener('change', () => {
-        section.classList.toggle('hidden', !checkbox.checked);
+      detail.innerHTML = toggleHtml;
+
+      // Checkbox event koppelen
+      const toggleCheckbox = document.getElementById('toggleHeaders');
+      const headersSection = document.getElementById('headersSection');
+      toggleCheckbox.addEventListener('change', () => {
+        headersSection.classList.toggle('hidden', !toggleCheckbox.checked);
       });
     };
     list.appendChild(item);
