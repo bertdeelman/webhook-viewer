@@ -1,4 +1,3 @@
-
 import './main.css'
 
 let selected = null;
@@ -18,7 +17,7 @@ async function fetchData() {
       selected = req;
       detail.innerHTML = `
         <div class="flex items-center gap-2 mb-2">
-          <input type="checkbox" id="toggleHeaders" class="accent-ral3031" onchange="toggleHeaders()" />
+          <input type="checkbox" id="toggleHeaders" class="accent-ral3031" />
           <label for="toggleHeaders">Toon headers</label>
         </div>
         <div id="headersSection" class="hidden mb-4">
@@ -29,15 +28,16 @@ async function fetchData() {
         <pre id="bodyOutput" class="bg-white text-black p-2 overflow-auto rounded">${formatBody(req.body)}</pre>
         <button onclick="copyDetail()" class="mt-4 bg-ral3031 text-white px-4 py-2 rounded hover:bg-white hover:text-black transition">Kopieer alles</button>
       `;
+
+      // Voeg eventlistener toe zodra de checkbox bestaat
+      const checkbox = document.getElementById('toggleHeaders');
+      const section = document.getElementById('headersSection');
+      checkbox.addEventListener('change', () => {
+        section.classList.toggle('hidden', !checkbox.checked);
+      });
     };
     list.appendChild(item);
   });
-}
-
-function toggleHeaders() {
-  const checkbox = document.getElementById('toggleHeaders');
-  const section = document.getElementById('headersSection');
-  section.classList.toggle('hidden', !checkbox.checked);
 }
 
 function copyDetail() {
@@ -49,7 +49,6 @@ function copyDetail() {
 
 function formatBody(body) {
   if (typeof body === 'string') {
-    // Check if it's XML
     if (body.trim().startsWith('<')) {
       return body;
     }
