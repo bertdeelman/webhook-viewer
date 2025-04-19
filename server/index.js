@@ -9,16 +9,18 @@ const PORT = process.env.PORT || 3000;
 
 let requests = [];
 
+app.use(express.text({ type: ['text/*', 'application/xml'] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../dist')));
 
 app.post('/hook', (req, res) => {
+  const body = req.is('application/json') ? req.body : req.body || req.body.toString();
   const entry = {
     id: Date.now(),
     timestamp: new Date().toISOString(),
     headers: req.headers,
-    body: req.body
+    body: body
   };
   requests.unshift(entry);
   res.status(200).send({ received: true });

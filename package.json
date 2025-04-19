@@ -1,7 +1,7 @@
 
 {
-  "name": "webhook-viewer-final",
-  "version": "1.0.2",
+  "name": "webhook-viewer-updated",
+  "version": "1.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
